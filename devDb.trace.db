@@ -1,0 +1,6 @@
+01-06 16:16:08 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Table "SEC_USER_SEC_ROLE" not found; SQL statement:
+alter table sec_user_sec_role drop constraint FK6630E2AD6EA7948 [42102-173]
+01-06 16:16:08 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Table "SEC_USER_SEC_ROLE" not found; SQL statement:
+alter table sec_user_sec_role drop constraint FK6630E2A31BFB568 [42102-173]

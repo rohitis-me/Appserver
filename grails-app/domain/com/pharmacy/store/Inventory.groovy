@@ -3,18 +3,28 @@ package com.pharmacy.store
 class Inventory {
 
 	String inventoryId
-	long brandId
+	String brandId
 	String storeId
 	String batch
 	Date expiry
-	int unitCost
-	int mrp
+	double unitCost
+	double mrp
+	double VAT
 	int quantity
-	int discount
+	double discountAmount
 	int itemsPerUnit
+	int itemsRemaining
+	int numberOfUnitsPurchased
 	boolean isDeleted
 	long lastUpdatedTimeStamp
+	String invoiceId
+	String brandName
+	
 	
     static constraints = {
     }
+	
+	static mapping = {
+		id name: 'inventoryId', generator:'assigned'
+	}
 }

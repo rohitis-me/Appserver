@@ -1,19 +1,31 @@
+
 package com.pharmacy.store
 
 class Billing {
 
 	String billingId
-	long billingNumber
+	String billingNumber
 	String storeId
-	long brandId
-	String batch
 	Date billingTime
 	int quantity
-	int discount
-	int sellingPrice
+	double discountAmount
+	double finalAmount
+//	double sellingPrice
 	boolean isDeleted
 	long lastUpdatedTimeStamp
+	String inventoryId
+	String patientId
+	double vatAmount
+	byte orderStatus
+	byte paymentType
+	Date dateCreated
+	Date lastUpdated
 	
     static constraints = {
     }
+	
+	static mapping = {
+		id name: 'billingId', generator:'assigned'
+		autotimestamp: "true"
+	}
 }

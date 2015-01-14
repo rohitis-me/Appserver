@@ -24,17 +24,17 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="batch" title="${message(code: 'billing.batch.label', default: 'Batch')}" />
-					
 						<g:sortableColumn property="billingId" title="${message(code: 'billing.billingId.label', default: 'Billing Id')}" />
 					
 						<g:sortableColumn property="billingNumber" title="${message(code: 'billing.billingNumber.label', default: 'Billing Number')}" />
 					
 						<g:sortableColumn property="billingTime" title="${message(code: 'billing.billingTime.label', default: 'Billing Time')}" />
 					
-						<g:sortableColumn property="brandId" title="${message(code: 'billing.brandId.label', default: 'Brand Id')}" />
+						<g:sortableColumn property="discountAmount" title="${message(code: 'billing.discountAmount.label', default: 'Discount Amount')}" />
 					
-						<g:sortableColumn property="discount" title="${message(code: 'billing.discount.label', default: 'Discount')}" />
+						<g:sortableColumn property="finalAmount" title="${message(code: 'billing.finalAmount.label', default: 'Final Amount')}" />
+					
+						<g:sortableColumn property="inventoryId" title="${message(code: 'billing.inventoryId.label', default: 'Inventory Id')}" />
 					
 					</tr>
 				</thead>
@@ -42,17 +42,17 @@
 				<g:each in="${billingInstanceList}" status="i" var="billingInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${billingInstance.id}">${fieldValue(bean: billingInstance, field: "batch")}</g:link></td>
-					
-						<td>${fieldValue(bean: billingInstance, field: "billingId")}</td>
+						<td><g:link action="show" id="${billingInstance.id}">${fieldValue(bean: billingInstance, field: "billingId")}</g:link></td>
 					
 						<td>${fieldValue(bean: billingInstance, field: "billingNumber")}</td>
 					
 						<td><g:formatDate date="${billingInstance.billingTime}" /></td>
 					
-						<td>${fieldValue(bean: billingInstance, field: "brandId")}</td>
+						<td>${fieldValue(bean: billingInstance, field: "discountAmount")}</td>
 					
-						<td>${fieldValue(bean: billingInstance, field: "discount")}</td>
+						<td>${fieldValue(bean: billingInstance, field: "finalAmount")}</td>
+					
+						<td>${fieldValue(bean: billingInstance, field: "inventoryId")}</td>
 					
 					</tr>
 				</g:each>

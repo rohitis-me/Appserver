@@ -1,18 +1,26 @@
 <%@ page import="com.pharmacy.store.Pharmacy" %>
-<%@ page import="com.pharmacy.constants.StringConstants" %>
 
 
 
-<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'address', 'error')} required">
-	<label for="address">
-		<g:message code="pharmacy.address.label" default="Address" />
+<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'addressLine1', 'error')} required">
+	<label for="addressLine1">
+		<g:message code="pharmacy.addressLine1.label" default="Address Line1" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="address" required="" value="${pharmacyInstance?.address}"/>
+	<g:textField name="addressLine1" required="" value="${pharmacyInstance?.addressLine1}"/>
 
 </div>
 
-<%--<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'chainId', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'addressLine2', 'error')} required">
+	<label for="addressLine2">
+		<g:message code="pharmacy.addressLine2.label" default="Address Line2" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="addressLine2" required="" value="${pharmacyInstance?.addressLine2}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'chainId', 'error')} required">
 	<label for="chainId">
 		<g:message code="pharmacy.chainId.label" default="Chain Id" />
 		<span class="required-indicator">*</span>
@@ -21,18 +29,12 @@
 
 </div>
 
---%>
-<g:hiddenField name="chainId" value="${1 }"/>
-
 <div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'circle', 'error')} required">
 	<label for="circle">
 		<g:message code="pharmacy.circle.label" default="Circle" />
 		<span class="required-indicator">*</span>
-	</label><%--
+	</label>
 	<g:textField name="circle" required="" value="${pharmacyInstance?.circle}"/>
-	
-	--%>
-	<g:select name="circle" from="${StringConstants.circle }" value="${pharmacyInstance.circle }"/>
 
 </div>
 
@@ -72,7 +74,7 @@
 
 </div>
 
-<%--<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'storeId', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'storeId', 'error')} required">
 	<label for="storeId">
 		<g:message code="pharmacy.storeId.label" default="Store Id" />
 		<span class="required-indicator">*</span>
@@ -81,7 +83,6 @@
 
 </div>
 
---%>
 <div class="fieldcontain ${hasErrors(bean: pharmacyInstance, field: 'storeName', 'error')} required">
 	<label for="storeName">
 		<g:message code="pharmacy.storeName.label" default="Store Name" />
@@ -96,10 +97,7 @@
 		<g:message code="pharmacy.type.label" default="Type" />
 		<span class="required-indicator">*</span>
 	</label>
-	<%--<g:field name="type" type="number" value="${pharmacyInstance.type}" required=""/>
-	
-	--%>
-	<g:select name="type" from="${StringConstants.storeTypes }" keys="${StringConstants.storeNum }" value="${pharmacyInstance.type }"/>
+	<g:field name="type" type="number" value="${pharmacyInstance.type}" required=""/>
 
 </div>
 

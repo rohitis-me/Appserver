@@ -2,15 +2,6 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'batch', 'error')} required">
-	<label for="batch">
-		<g:message code="billing.batch.label" default="Batch" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:textField name="batch" required="" value="${billingInstance?.batch}"/>
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'billingId', 'error')} required">
 	<label for="billingId">
 		<g:message code="billing.billingId.label" default="Billing Id" />
@@ -25,7 +16,7 @@
 		<g:message code="billing.billingNumber.label" default="Billing Number" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="billingNumber" type="number" value="${billingInstance.billingNumber}" required=""/>
+	<g:textField name="billingNumber" required="" value="${billingInstance?.billingNumber}"/>
 
 </div>
 
@@ -38,21 +29,30 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'brandId', 'error')} required">
-	<label for="brandId">
-		<g:message code="billing.brandId.label" default="Brand Id" />
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'discountAmount', 'error')} required">
+	<label for="discountAmount">
+		<g:message code="billing.discountAmount.label" default="Discount Amount" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="brandId" type="number" value="${billingInstance.brandId}" required=""/>
+	<g:field name="discountAmount" value="${fieldValue(bean: billingInstance, field: 'discountAmount')}" required=""/>
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'discount', 'error')} required">
-	<label for="discount">
-		<g:message code="billing.discount.label" default="Discount" />
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'finalAmount', 'error')} required">
+	<label for="finalAmount">
+		<g:message code="billing.finalAmount.label" default="Final Amount" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="discount" type="number" value="${billingInstance.discount}" required=""/>
+	<g:field name="finalAmount" value="${fieldValue(bean: billingInstance, field: 'finalAmount')}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'inventoryId', 'error')} required">
+	<label for="inventoryId">
+		<g:message code="billing.inventoryId.label" default="Inventory Id" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="inventoryId" required="" value="${billingInstance?.inventoryId}"/>
 
 </div>
 
@@ -71,6 +71,33 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:field name="lastUpdatedTimeStamp" type="number" value="${billingInstance.lastUpdatedTimeStamp}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'orderStatus', 'error')} required">
+	<label for="orderStatus">
+		<g:message code="billing.orderStatus.label" default="Order Status" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="orderStatus" type="number" value="${billingInstance.orderStatus}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'patientId', 'error')} required">
+	<label for="patientId">
+		<g:message code="billing.patientId.label" default="Patient Id" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="patientId" required="" value="${billingInstance?.patientId}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'paymentType', 'error')} required">
+	<label for="paymentType">
+		<g:message code="billing.paymentType.label" default="Payment Type" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="paymentType" type="number" value="${billingInstance.paymentType}" required=""/>
 
 </div>
 
@@ -98,6 +125,15 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="storeId" required="" value="${billingInstance?.storeId}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: billingInstance, field: 'vatAmount', 'error')} required">
+	<label for="vatAmount">
+		<g:message code="billing.vatAmount.label" default="Vat Amount" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="vatAmount" value="${fieldValue(bean: billingInstance, field: 'vatAmount')}" required=""/>
 
 </div>
 

@@ -24,7 +24,9 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="address" title="${message(code: 'pharmacy.address.label', default: 'Address')}" />
+						<g:sortableColumn property="addressLine1" title="${message(code: 'pharmacy.addressLine1.label', default: 'Address Line1')}" />
+					
+						<g:sortableColumn property="addressLine2" title="${message(code: 'pharmacy.addressLine2.label', default: 'Address Line2')}" />
 					
 						<g:sortableColumn property="chainId" title="${message(code: 'pharmacy.chainId.label', default: 'Chain Id')}" />
 					
@@ -34,15 +36,15 @@
 					
 						<g:sortableColumn property="latitude" title="${message(code: 'pharmacy.latitude.label', default: 'Latitude')}" />
 					
-						<g:sortableColumn property="longitude" title="${message(code: 'pharmacy.longitude.label', default: 'Longitude')}" />
-					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${pharmacyInstanceList}" status="i" var="pharmacyInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${pharmacyInstance.id}">${fieldValue(bean: pharmacyInstance, field: "address")}</g:link></td>
+						<td><g:link action="show" id="${pharmacyInstance.id}">${fieldValue(bean: pharmacyInstance, field: "addressLine1")}</g:link></td>
+					
+						<td>${fieldValue(bean: pharmacyInstance, field: "addressLine2")}</td>
 					
 						<td>${fieldValue(bean: pharmacyInstance, field: "chainId")}</td>
 					
@@ -51,8 +53,6 @@
 						<td>${fieldValue(bean: pharmacyInstance, field: "city")}</td>
 					
 						<td>${fieldValue(bean: pharmacyInstance, field: "latitude")}</td>
-					
-						<td>${fieldValue(bean: pharmacyInstance, field: "longitude")}</td>
 					
 					</tr>
 				</g:each>

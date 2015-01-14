@@ -23,15 +23,6 @@
 			</g:if>
 			<ol class="property-list billing">
 			
-				<g:if test="${billingInstance?.batch}">
-				<li class="fieldcontain">
-					<span id="batch-label" class="property-label"><g:message code="billing.batch.label" default="Batch" /></span>
-					
-						<span class="property-value" aria-labelledby="batch-label"><g:fieldValue bean="${billingInstance}" field="batch"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${billingInstance?.billingId}">
 				<li class="fieldcontain">
 					<span id="billingId-label" class="property-label"><g:message code="billing.billingId.label" default="Billing Id" /></span>
@@ -59,20 +50,29 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${billingInstance?.brandId}">
+				<g:if test="${billingInstance?.discountAmount}">
 				<li class="fieldcontain">
-					<span id="brandId-label" class="property-label"><g:message code="billing.brandId.label" default="Brand Id" /></span>
+					<span id="discountAmount-label" class="property-label"><g:message code="billing.discountAmount.label" default="Discount Amount" /></span>
 					
-						<span class="property-value" aria-labelledby="brandId-label"><g:fieldValue bean="${billingInstance}" field="brandId"/></span>
+						<span class="property-value" aria-labelledby="discountAmount-label"><g:fieldValue bean="${billingInstance}" field="discountAmount"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${billingInstance?.discount}">
+				<g:if test="${billingInstance?.finalAmount}">
 				<li class="fieldcontain">
-					<span id="discount-label" class="property-label"><g:message code="billing.discount.label" default="Discount" /></span>
+					<span id="finalAmount-label" class="property-label"><g:message code="billing.finalAmount.label" default="Final Amount" /></span>
 					
-						<span class="property-value" aria-labelledby="discount-label"><g:fieldValue bean="${billingInstance}" field="discount"/></span>
+						<span class="property-value" aria-labelledby="finalAmount-label"><g:fieldValue bean="${billingInstance}" field="finalAmount"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${billingInstance?.inventoryId}">
+				<li class="fieldcontain">
+					<span id="inventoryId-label" class="property-label"><g:message code="billing.inventoryId.label" default="Inventory Id" /></span>
+					
+						<span class="property-value" aria-labelledby="inventoryId-label"><g:fieldValue bean="${billingInstance}" field="inventoryId"/></span>
 					
 				</li>
 				</g:if>
@@ -91,6 +91,33 @@
 					<span id="lastUpdatedTimeStamp-label" class="property-label"><g:message code="billing.lastUpdatedTimeStamp.label" default="Last Updated Time Stamp" /></span>
 					
 						<span class="property-value" aria-labelledby="lastUpdatedTimeStamp-label"><g:fieldValue bean="${billingInstance}" field="lastUpdatedTimeStamp"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${billingInstance?.orderStatus}">
+				<li class="fieldcontain">
+					<span id="orderStatus-label" class="property-label"><g:message code="billing.orderStatus.label" default="Order Status" /></span>
+					
+						<span class="property-value" aria-labelledby="orderStatus-label"><g:fieldValue bean="${billingInstance}" field="orderStatus"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${billingInstance?.patientId}">
+				<li class="fieldcontain">
+					<span id="patientId-label" class="property-label"><g:message code="billing.patientId.label" default="Patient Id" /></span>
+					
+						<span class="property-value" aria-labelledby="patientId-label"><g:fieldValue bean="${billingInstance}" field="patientId"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${billingInstance?.paymentType}">
+				<li class="fieldcontain">
+					<span id="paymentType-label" class="property-label"><g:message code="billing.paymentType.label" default="Payment Type" /></span>
+					
+						<span class="property-value" aria-labelledby="paymentType-label"><g:fieldValue bean="${billingInstance}" field="paymentType"/></span>
 					
 				</li>
 				</g:if>
@@ -118,6 +145,15 @@
 					<span id="storeId-label" class="property-label"><g:message code="billing.storeId.label" default="Store Id" /></span>
 					
 						<span class="property-value" aria-labelledby="storeId-label"><g:fieldValue bean="${billingInstance}" field="storeId"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${billingInstance?.vatAmount}">
+				<li class="fieldcontain">
+					<span id="vatAmount-label" class="property-label"><g:message code="billing.vatAmount.label" default="Vat Amount" /></span>
+					
+						<span class="property-value" aria-labelledby="vatAmount-label"><g:fieldValue bean="${billingInstance}" field="vatAmount"/></span>
 					
 				</li>
 				</g:if>

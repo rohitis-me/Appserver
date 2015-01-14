@@ -5,6 +5,8 @@ package com.pharmacy.store;
 
 import java.util.Date;
 
+import com.common.Utility;
+
 /**
  * @author Rohit
  *
@@ -12,17 +14,23 @@ import java.util.Date;
 public class InventoryCommand {
 
 	String inventoryId;
-	long brandId;
+	String brandId;
 	String storeId;
 	String batch;
 	Date expiry;
-	int unitCost;
-	int mrp;
+	double unitCost;
+	double mrp;
+	double VAT;
 	int quantity;
-	int discount;
+	double discountAmount;
 	int itemsPerUnit;
+	int itemsRemaining;
+	int numberOfUnitsPurchased;
 	boolean isDeleted;
 	long lastUpdatedTimeStamp;
+	String invoiceId;
+	String brandName;
+	
 	/**
 	 * @param inventoryId
 	 * @param brandId
@@ -31,16 +39,22 @@ public class InventoryCommand {
 	 * @param expiry
 	 * @param unitCost
 	 * @param mrp
+	 * @param vAT
 	 * @param quantity
-	 * @param discount
+	 * @param discountAmount
 	 * @param itemsPerUnit
+	 * @param itemsRemaining
+	 * @param numberOfUnitsPurchased
 	 * @param isDeleted
 	 * @param lastUpdatedTimeStamp
+	 * @param invoiceId
+	 * @param brandName
 	 */
-	public InventoryCommand(String inventoryId, long brandId, String storeId,
-			String batch, Date expiry, int unitCost, int mrp, int quantity,
-			int discount, int itemsPerUnit, boolean isDeleted,
-			long lastUpdatedTimeStamp) {
+	public InventoryCommand(String inventoryId, String brandId, String storeId,
+			String batch, Date expiry, double unitCost, double mrp, double vAT,
+			int quantity, double discountAmount, int itemsPerUnit,
+			int itemsRemaining, int numberOfUnitsPurchased, boolean isDeleted,
+			long lastUpdatedTimeStamp, String invoiceId, String brandName) {
 		super();
 		this.inventoryId = inventoryId;
 		this.brandId = brandId;
@@ -49,11 +63,43 @@ public class InventoryCommand {
 		this.expiry = expiry;
 		this.unitCost = unitCost;
 		this.mrp = mrp;
+		VAT = vAT;
 		this.quantity = quantity;
-		this.discount = discount;
+		this.discountAmount = discountAmount;
 		this.itemsPerUnit = itemsPerUnit;
+		this.itemsRemaining = itemsRemaining;
+		this.numberOfUnitsPurchased = numberOfUnitsPurchased;
 		this.isDeleted = isDeleted;
 		this.lastUpdatedTimeStamp = lastUpdatedTimeStamp;
+		this.invoiceId = invoiceId;
+		this.brandName = brandName;
+	}
+	
+	public InventoryCommand(boolean check) {
+		super();
+		if(check) {
+		this.inventoryId = "";
+		this.brandId = ""+Math.random();
+		this.storeId = ""+Math.random();
+		this.batch = ""+Math.random();
+		this.expiry = new Date();
+		this.unitCost = 435;
+		this.mrp = 544;
+		VAT = 2;
+		this.quantity = 2;
+		this.discountAmount = 23;
+		this.itemsPerUnit = 12;
+		this.itemsRemaining = 23;
+		this.numberOfUnitsPurchased = 45;
+		this.isDeleted = false;
+		this.lastUpdatedTimeStamp = 0;
+		this.invoiceId = ""+Math.random();
+		this.brandName = ""+Math.random();
+		}
+	}
+	
+	public InventoryCommand() {
+		super();
 	}
 	/**
 	 * @return the inventoryId
@@ -70,13 +116,13 @@ public class InventoryCommand {
 	/**
 	 * @return the brandId
 	 */
-	public long getBrandId() {
+	public String getBrandId() {
 		return brandId;
 	}
 	/**
 	 * @param brandId the brandId to set
 	 */
-	public void setBrandId(long brandId) {
+	public void setBrandId(String brandId) {
 		this.brandId = brandId;
 	}
 	/**
@@ -118,26 +164,38 @@ public class InventoryCommand {
 	/**
 	 * @return the unitCost
 	 */
-	public int getUnitCost() {
+	public double getUnitCost() {
 		return unitCost;
 	}
 	/**
 	 * @param unitCost the unitCost to set
 	 */
-	public void setUnitCost(int unitCost) {
+	public void setUnitCost(double unitCost) {
 		this.unitCost = unitCost;
 	}
 	/**
 	 * @return the mrp
 	 */
-	public int getMrp() {
+	public double getMrp() {
 		return mrp;
 	}
 	/**
 	 * @param mrp the mrp to set
 	 */
-	public void setMrp(int mrp) {
+	public void setMrp(double mrp) {
 		this.mrp = mrp;
+	}
+	/**
+	 * @return the vAT
+	 */
+	public double getVAT() {
+		return VAT;
+	}
+	/**
+	 * @param vAT the vAT to set
+	 */
+	public void setVAT(double vAT) {
+		VAT = vAT;
 	}
 	/**
 	 * @return the quantity
@@ -152,16 +210,16 @@ public class InventoryCommand {
 		this.quantity = quantity;
 	}
 	/**
-	 * @return the discount
+	 * @return the discountAmount
 	 */
-	public int getDiscount() {
-		return discount;
+	public double getDiscountAmount() {
+		return discountAmount;
 	}
 	/**
-	 * @param discount the discount to set
+	 * @param discountAmount the discountAmount to set
 	 */
-	public void setDiscount(int discount) {
-		this.discount = discount;
+	public void setDiscountAmount(double discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 	/**
 	 * @return the itemsPerUnit
@@ -174,6 +232,30 @@ public class InventoryCommand {
 	 */
 	public void setItemsPerUnit(int itemsPerUnit) {
 		this.itemsPerUnit = itemsPerUnit;
+	}
+	/**
+	 * @return the itemsRemaining
+	 */
+	public int getItemsRemaining() {
+		return itemsRemaining;
+	}
+	/**
+	 * @param itemsRemaining the itemsRemaining to set
+	 */
+	public void setItemsRemaining(int itemsRemaining) {
+		this.itemsRemaining = itemsRemaining;
+	}
+	/**
+	 * @return the numberOfUnitsPurchased
+	 */
+	public int getNumberOfUnitsPurchased() {
+		return numberOfUnitsPurchased;
+	}
+	/**
+	 * @param numberOfUnitsPurchased the numberOfUnitsPurchased to set
+	 */
+	public void setNumberOfUnitsPurchased(int numberOfUnitsPurchased) {
+		this.numberOfUnitsPurchased = numberOfUnitsPurchased;
 	}
 	/**
 	 * @return the isDeleted
@@ -198,6 +280,30 @@ public class InventoryCommand {
 	 */
 	public void setLastUpdatedTimeStamp(long lastUpdatedTimeStamp) {
 		this.lastUpdatedTimeStamp = lastUpdatedTimeStamp;
+	}
+	/**
+	 * @return the invoiceId
+	 */
+	public String getInvoiceId() {
+		return invoiceId;
+	}
+	/**
+	 * @param invoiceId the invoiceId to set
+	 */
+	public void setInvoiceId(String invoiceId) {
+		this.invoiceId = invoiceId;
+	}
+	/**
+	 * @return the brandName
+	 */
+	public String getBrandName() {
+		return brandName;
+	}
+	/**
+	 * @param brandName the brandName to set
+	 */
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 	
 	

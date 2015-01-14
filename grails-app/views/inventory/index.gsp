@@ -24,17 +24,17 @@
 			<thead>
 					<tr>
 					
+						<g:sortableColumn property="VAT" title="${message(code: 'inventory.VAT.label', default: 'VAT')}" />
+					
 						<g:sortableColumn property="batch" title="${message(code: 'inventory.batch.label', default: 'Batch')}" />
 					
 						<g:sortableColumn property="brandId" title="${message(code: 'inventory.brandId.label', default: 'Brand Id')}" />
 					
-						<g:sortableColumn property="discount" title="${message(code: 'inventory.discount.label', default: 'Discount')}" />
+						<g:sortableColumn property="brandName" title="${message(code: 'inventory.brandName.label', default: 'Brand Name')}" />
+					
+						<g:sortableColumn property="discountAmount" title="${message(code: 'inventory.discountAmount.label', default: 'Discount Amount')}" />
 					
 						<g:sortableColumn property="expiry" title="${message(code: 'inventory.expiry.label', default: 'Expiry')}" />
-					
-						<g:sortableColumn property="inventoryId" title="${message(code: 'inventory.inventoryId.label', default: 'Inventory Id')}" />
-					
-						<g:sortableColumn property="isDeleted" title="${message(code: 'inventory.isDeleted.label', default: 'Is Deleted')}" />
 					
 					</tr>
 				</thead>
@@ -42,17 +42,17 @@
 				<g:each in="${inventoryInstanceList}" status="i" var="inventoryInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${inventoryInstance.id}">${fieldValue(bean: inventoryInstance, field: "batch")}</g:link></td>
+						<td><g:link action="show" id="${inventoryInstance.id}">${fieldValue(bean: inventoryInstance, field: "VAT")}</g:link></td>
+					
+						<td>${fieldValue(bean: inventoryInstance, field: "batch")}</td>
 					
 						<td>${fieldValue(bean: inventoryInstance, field: "brandId")}</td>
 					
-						<td>${fieldValue(bean: inventoryInstance, field: "discount")}</td>
+						<td>${fieldValue(bean: inventoryInstance, field: "brandName")}</td>
+					
+						<td>${fieldValue(bean: inventoryInstance, field: "discountAmount")}</td>
 					
 						<td><g:formatDate date="${inventoryInstance.expiry}" /></td>
-					
-						<td>${fieldValue(bean: inventoryInstance, field: "inventoryId")}</td>
-					
-						<td><g:formatBoolean boolean="${inventoryInstance.isDeleted}" /></td>
 					
 					</tr>
 				</g:each>

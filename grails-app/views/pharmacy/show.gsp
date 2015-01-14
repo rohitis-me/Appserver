@@ -23,11 +23,20 @@
 			</g:if>
 			<ol class="property-list pharmacy">
 			
-				<g:if test="${pharmacyInstance?.address}">
+				<g:if test="${pharmacyInstance?.addressLine1}">
 				<li class="fieldcontain">
-					<span id="address-label" class="property-label"><g:message code="pharmacy.address.label" default="Address" /></span>
+					<span id="addressLine1-label" class="property-label"><g:message code="pharmacy.addressLine1.label" default="Address Line1" /></span>
 					
-						<span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${pharmacyInstance}" field="address"/></span>
+						<span class="property-value" aria-labelledby="addressLine1-label"><g:fieldValue bean="${pharmacyInstance}" field="addressLine1"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${pharmacyInstance?.addressLine2}">
+				<li class="fieldcontain">
+					<span id="addressLine2-label" class="property-label"><g:message code="pharmacy.addressLine2.label" default="Address Line2" /></span>
+					
+						<span class="property-value" aria-labelledby="addressLine2-label"><g:fieldValue bean="${pharmacyInstance}" field="addressLine2"/></span>
 					
 				</li>
 				</g:if>

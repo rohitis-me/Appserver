@@ -1,39 +1,132 @@
 package com.pharmacy.store
 
+import static groovyx.net.http.ContentType.URLENC
+
 import java.lang.reflect.Type
 
+import com.common.Utility
 import com.google.gson.reflect.TypeToken
-
-import groovyx.net.http.HTTPBuilder
-import static groovyx.net.http.ContentType.URLENC
 
 class WebserviceController {
 
 	def syncService
 	def mongoService
+	def billingService
+	def inventoryService
 	
-	static allowedMethods = [syncBilling: ["POST", "GET"], syncInventory: ["POST", "GET"]]
+	static allowedMethods = [syncBilling: ["POST", "GET"], syncInventory: ["POST", "GET"],
+		updateSalesOrderStatus: ["POST", "GET"], updatePurchaseOrderStatus: ["POST", "GET"],
+		insertBillDetails: ["POST", "GET"], insertPurchaseDetails: ["POST", "GET"]]
 
 	//GsonBuilder
 	def gsonBuilder
 	
     def index() { }
 	
+	def updateSalesOrderStatus() {
+		//Read parameters
+		println "received params"+ params
 		
-	def syncBilling() {
-		//cast parameters into arraylist
-		println "received params: "+params+ " bill List: "+params.billList;
+		byte orderStatus = params.byte('orderStatus')
+		String billId = params.billId
 		
-		Type billingCommandListType = new TypeToken<List<BillingCommand>>() {}.getType();
+		int status = billingService.updateOrderStatus(orderStatus, billId)
+		
+		render (text: status)
+	}
+		
+	def updatePurchaseOrderStatus() {
+		//Read parameters
+		println "received params"+ params
+		
+		byte orderStatus = params.byte('orderStatus')
+		String invoiceId = params.invoiceId
+		
+		int status = inventoryService.updateOrderStatus(orderStatus, invoiceId)
+		
+		render (text: status)
+	}
+	
+	def getSalesOrderStatus() {
+		//Read parameters
+		println "received params"+ params
+		
+		String billId = params.billId
+		
+		int status = billingService.getOrderStatus(billId)
+		
+		render (text: status)
+	}
+		
+	def getPurchaseOrderStatus() {
+		//Read parameters
+		println "received params"+ params
+		
+		String inventoryId = params.inventoryId
+		
+		int status = inventoryService.getOrderStatus(inventoryId)
+		
+		render (text: status)
+	}
+	
+	def getInventoryList() {
+		//Read parameters
+		println "received params"+ params
+		
+		ArrayList<Inventory> inventoryList = new ArrayList<Inventory>()
+		inventoryList = inventoryService.getInventoryList()
+		
 		def gson = gsonBuilder.create()
-		ArrayList<BillingCommand> billList = gson.fromJson(params.billList, billingCommandListType)
+		def json = gson.toJson(inventoryList).toString()
 		
-		println "list count: "+billList.size()
+		render (text: json)
+	}
+	
+	def getSalesList() {
+		//Read parameters
+		println "received params"+ params
+		
+		ArrayList<Billing> billingList = new ArrayList<Billing>()
+		billingList = billingService.getBillingList()
+		
+		def gson = gsonBuilder.create()
+		def json = gson.toJson(billingList).toString()
+		
+		render (text: json)
+	}
+	
+	def insertBillDetails() {
+		//cast parameters into arraylist
+		println "received params: "+params+ " bill Details: "+params.billDetails;
+		
+		Type billDetailsType = new TypeToken<BillDetails>() {}.getType();
+		def gson = gsonBuilder.create()
+		BillDetails billDetails = gson.fromJson(params.billDetails, billDetailsType)
+		
+		println "list count: "+billDetails.itemDetails.size()
 		
 		
+		//call insert action
+		
+		def lastUpdatedTimeStamp = syncService.insertBillDetails(billDetails)
+		
+		
+		render (text: lastUpdatedTimeStamp)
+	}
+	
+	def insertPurchaseDetails() {
+		//cast parameters into arraylist
+		println "received params: "+params+" request: "+request.toString();
+		
+		Type purchaseDetailsType = new TypeToken<PurchaseDetails>() {}.getType();
+		def gson = gsonBuilder.create()
+		PurchaseDetails purchaseDetails = gson.fromJson(params.purchaseDetails, purchaseDetailsType)
+		
+		println "Purchase Details list size: "+purchaseDetails.inventoryList.size()
 		//call sync service
-		String lastUpdatedTimeStamp = syncService.syncBilling(billList)
+		//String lastUpdatedTimeStamp = "test"
 		
+		String lastUpdatedTimeStamp = syncService.insertPurchaseDetails(purchaseDetails)
 		
 		//return lastUpdatesTS
 		render (text: lastUpdatedTimeStamp)
@@ -47,23 +140,8 @@ class WebserviceController {
 		
 	}
 	
-	def syncInventory() {
-		//cast parameters into arraylist
-		println "received params: "+params+" request: "+request.toString();
-		
-		Type inventoryCommandListType = new TypeToken<List<InventoryCommand>>() {}.getType();
-		def gson = gsonBuilder.create()
-		ArrayList<InventoryCommand> inventoryList = gson.fromJson(params.inventoryList, inventoryCommandListType)
-		
-//		ArrayList inventoryList = new ArrayList<InventoryCommand>(params)
-		
-		//call sync service
-		String lastUpdatedTimeStamp = syncService.syncInventory(inventoryList)
-		
-		//return lastUpdatesTS
-		render (text: lastUpdatedTimeStamp)
-	}
 	
+		
 	def getLastUpdatedTimeStampForInventory() {
 		
 		//get getLastUpdatedTimeStampForInventory from mongoservice
@@ -72,42 +150,45 @@ class WebserviceController {
 		
 	}
 	
-	def testBillSync() {
+	
+	
+	def testBillDetailsInsert() {
 		println "Bill count: "+Billing.count()
-		def billCommand = new BillingCommand(" "+Billing.count()+1, 1.value.toLong(), " "+2, 1.value.toLong(), 'gre123', new Date(), 3, 0, 123, false, new Date().getTime())
 		
-		ArrayList<BillingCommand> billList1 = new ArrayList<BillingCommand>()
-		billList1.add(billCommand)
+		BillDetails billDetails = new BillDetails()
+		billDetails.patient = new PatientCommand(true)
+		def billCommand = new BillingCommand(true)
 		
-		billCommand = new BillingCommand(" "+Billing.count()+1, 1.value.toLong(), " "+2, 1.value.toLong(), 'gre123', new Date(), 3, 0, 123, false, new Date().getTime())
-		billList1.add(billCommand)
+		ArrayList<BillingCommand> billList = new ArrayList<BillingCommand>()
+		billList.add(billCommand)
+		
+		billCommand = new BillingCommand(true)
+		billList.add(billCommand)
+		
+		billDetails.itemDetails = billList
 		
 		def gson = gsonBuilder.create()
-		def json = gson.toJson(billList1).toString()
+		def json = gson.toJson(billDetails).toString()
 		
 		println "JSON: "+json
 		
-		redirect(action:'syncBilling', params:[billList:json])
+		redirect(action:'insertBillDetails', params:[billDetails:Utility.billingJson])
 		
 	}
 	
-	def testInventorySync() {
+	
+	def testPurchaseDetailsInsert() {
 		println "Item count: "+Inventory.count()
-		def itemCommand = new InventoryCommand(" "+Inventory.count()+1, 1.value.toLong(), " "+2, 'item123', new Date(), 123, 12, 34, 2, 5, false, new Date().getTime())
-		//(" "+Inventory.count()+1, 1.value.toLong(), " "+2, 1.value.toLong(), 'gre123', new Date(), 3, 0, 123, false, new Date().getTime())
 		
-		ArrayList<InventoryCommand> itemList1 = new ArrayList<InventoryCommand>()
-		itemList1.add(itemCommand)
+		def purchaseDetails = new PurchaseDetails(true) 
 		
-		itemCommand = new InventoryCommand(" "+Inventory.count()+1, 1.value.toLong(), " "+2, 'item123', new Date(), 133, 62, 24, 6, 3, false, new Date().getTime())
-		itemList1.add(itemCommand)
 		
 		def gson = gsonBuilder.create()
-		def json = gson.toJson(itemList1).toString()
+		def json = gson.toJson(purchaseDetails).toString()
 		
 		println "JSON: "+json
 		
-		redirect(action:'syncInventory', params:[inventoryList:json])
+		redirect(action:'insertPurchaseDetails', params:[purchaseDetails:Utility.purchaseJson])
 		
 	}
 }

@@ -5,13 +5,15 @@ class Pharmacy {
 	long chainId
 	long storeId
 	String storeName
-	long type
-	String address
+	byte type
+	String addressLine1
+	String addressLine2
+	String circle
 	String city
 	String state
-	String circle
 	String latitude
 	String longitude
+	
 
     static constraints = {
 		
@@ -19,7 +21,7 @@ class Pharmacy {
 	static mapping = {
 		table "pharmacy_tbl" //schema: "SCHEMA" if it is different from the user
 
-		id name: 'storeId'
+		id name: 'storeId', generator: 'uuid'
 		
 	  }
 }
